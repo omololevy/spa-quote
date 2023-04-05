@@ -1,7 +1,7 @@
-## The Quote
+## Spa-Quote
 
-This is a single page project that consumes a rapid quotes api to show quotes of different categories.
-An individual can choose a quote to reade aor get motivated depending on their moods and feelings.
+This is a single page project that consumes a rapid API for quotes to show quotes of various categories.
+An individual can choose a quote to reade or get motivated depending on their moods and feelings.
 
 ## Tech Stack.
 The tech stack used so far is Python, Flask framework, HTML, CSS, JavaScript. Git and GitHub for version control.
