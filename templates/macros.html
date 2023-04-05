@@ -1,0 +1,42 @@
+{% macro displayNewsList(items) %}    
+
+{% for category in items %}
+
+<div class="col-xs-12 col-md-4">
+    <div class="card h-100">
+        <img class="card-img-top" src="../static/images/bg.jpg" alt="{{category}}" onerror="imgError(this);">
+        <div class="card-body">
+          <h5 class="card-title">{{category}}</h5>
+          <p class="card-text"><a href="/category/{{category}}" target="_blank">{{category}}</a></p>
+          <p class="card-text">- MyQtz</p>                              
+        </div>
+    </div>
+</div>
+
+{% endfor %} 
+
+{% endmacro %}
+
+
+
+{% macro displayCarousel(quotes) %}    
+
+{% for quote in quotes %}
+
+{% if quote.category==quote.author %}
+
+{% else %}
+
+<div class="item">
+  <img src="../static/images/bg.jpg" alt="..." ;">
+  <div class="carousel-caption">
+      <h4><a href="{{quote.category}}" target="_blank">"{{quote.text}}"</a></h4> <br>
+      <p>~ {{quote.author}}</p>                                   
+  </div>
+</div>
+
+{% endif %}
+
+{% endfor %}  
+
+{% endmacro %}

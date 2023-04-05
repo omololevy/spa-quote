@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% import 'macros.html' as macro%}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!--Sidenav-->
+        <div class="col-xs-12 col-md-3">
+            <div class="jumbotron jumbotron1">
+                <!--The app title/Name-->
+                <div class="row">
+                    <div class="col-xs-12 brand">
+                        <a class="navbar-brand" href="/"><a href="/"><h1><span class="T">M</span><span class="r">y</span><span class="e">Qtz</span></h1></a></a>
+                    </div>
+                </div>
+                <!--The Date-->
+                <div class="row border-b">
+                    <div class="col-xs-12 date">
+                        <p id="date"></p>
+                        <p id="time"></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!--Breaking news-->
+                    <div class="col-xs-12">
+                        <p><a href="/categories">Categories</a></p>
+                        <hr>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-8 open-topics">
+                                <p>Others</p>
+                            </div>
+                            <div class="col-xs-4 text-right open-topics">
+                                <span id="topics" class="glyphicon glyphicon-menu-up"></span>
+                            </div>
+                            <div class="col-xs-12 topics">
+                                <div class="row lists">
+                                    <div class="col-xs-2"></div>
+                                    <div class="col-xs-10">
+                                        <p><a href="/categories/computers">Computers</a></p>
+                                        <p><a href="/categories/alone">Alone</a></p>
+                                        <p><a href="/categories/education">Education</a></p>
+                                        <p><a href="/categories/attitude">Attitude</a></p>
+                                        <p><a href="/categories/anger">Anger</a></p>
+                                        <p><a href="/categories/annivesary">Anniversary</a></p>
+                                        <p><a href="/categories/dreams">Dreams</a></p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                               
+                        <hr>
+                    </div>
+                    
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-8 open-countries">
+                                <p>All Categories</p>
+                            </div>
+                            <div class="col-xs-4 text-right open-countries">
+                                <span id="countries" class="glyphicon glyphicon-menu-down"></span>
+                            </div>
+                            <div class="col-xs-12 countries">
+                                <div class="row lists">
+                                    <div class="col-xs-2"></div>
+                                    <div class="col-xs-10">
+                                        {%for category in items %}
+                                        <p><a href="/categories/{{category}}">{{category.capitalize()}}</a></p>
+                                        {%endfor%}  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--Content section-->
+        <div class="col-xs-12 col-md-6">
+            <div class="jumbotron jumbotron2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">                            
+                            <div class="carousel-inner">
+                              <div class="item active">
+                                <img src="../static/images/sm.jpg" alt="..." onerror="imgError(this);">
+                                <div class="carousel-caption">
+                                   
+                                    <p><a href="#" target="_blank">{{quotes[0].text}}</a></p>  <br>
+                                    <p>~ {{quotes[0].author}}</p>
+                                                                                                    
+                                </div>
+                              </div>
+                              
+
+                              {{ macro.displayCarousel(quotes) }}
+                              
+                            </div>
+                          
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div> 
+                        <!-- Carousel -->
+                    </div>
+                </div>
+                <div class="row display-flex">
+                    <div class="col-xs-12">
+                        {% if quotes[0].category == quotes[1].category %}
+                        <h2>Quotes on {{quotes[0].category.capitalize()}}</h2>
+                        {% else %}
+                        <h2>Quotes on Random Topics </h2>
+                        {% endif %}
+                    </div>
+                    {%for quote in quotes %}
+                    <div class="col-xs-12 col-md-6">
+                        <div class="card">
+                            <img class="card-img-top" src="../static/images/sm.jpg" alt="quote">
+                            <div class="card-body">
+                              <h5 class="card-title"><a href="#"> "{{quote.text}}"</a></h5>
+                              <p class="card-text"><a href="#" target="_blank">~ {{quote.author}}</a></p>                              
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <!--right column section-->
+        <div class="col-xs-12 col-md-3">
+            <div class="jumbotron jumbotron3">
+                <form>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Search author</label>
+                            <div class="input-group">
+                                <input type="text" name="topic_query" class="form-control" placeholder="Search topic" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="jumbotron jumbotron4">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2>Random Quotes</h2>
+                        {% for quote in quotes %}
+                        <p class="headline"><strong><a href="#" target="_blank">{{quote.category.capitalize()}}</a></strong></p>
+                        <h5>{{quote.text}}</h5>
+                        <p>~ {{quote.author}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
